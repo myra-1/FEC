@@ -54,7 +54,12 @@ async function updateBreed(breed) {
   for (let pageNumber = 0; pageNumber < images.length / 10; pageNumber += 1) {
     const pageNumberElement = document.createElement('button');
     pageNumberElement.innerHTML = `${pageNumber + 1}`
-    pageNumberElement.addEventListener('click', function () {
+    pageNumberElement.addEventListener('click', function (event) {
+      let oldActivePage = document.querySelector("#paginationElement button.active");
+      if (oldActivePage) {
+        oldActivePage.classList.remove("active");
+      }
+      event.target.classList.add("active");
       populateThumbnails(pageNumber * 10)
     })
     paginationElement.appendChild(pageNumberElement);

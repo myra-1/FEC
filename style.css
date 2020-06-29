@@ -26,5 +26,8 @@
 #imageModal img {
   max-width:100%;
   max-height:100%;
-  
+}
+
+#paginationElement button.active {
+  font-weight: 700;
 }
