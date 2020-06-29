@@ -1,10 +1,12 @@
 // VARIABLES -- (const are generally in all caps (things unlikely to change))
-const breedsListElement = document.querySelector('#dogBreedsList')
-const thumnailContainerElement = document.querySelector('#thumbnailContainerElement')
 const IMAGE_COUNT = 50;
 const PAGINATE_BY = 10;
 
+const breedsListElement = document.querySelector('#dogBreedsList')
+const thumnailContainerElement = document.querySelector('#thumbnailContainerElement')
 const breedsInputElement = document.querySelector('#dogBreedInput')
+const paginationElement = document.querySelector('#paginationElement')
+
 
 // FUNCTIONS
 
@@ -31,8 +33,7 @@ async function getDogImages(breed, count) {
   return images.message
 }
 
-async function onDogBreedSelected(event) {
-  const breed = event.target.value;
+async function updateBreed(breed) {
   const images = await getDogImages(breed, IMAGE_COUNT);
 
   function populateThumbnails(start) {
@@ -43,7 +44,24 @@ async function onDogBreedSelected(event) {
       thumbnailContainerElement.appendChild(imageElement)
     }
   }
+
+  paginationElement.innerHTML = '';
+  for (let pageNumber = 0; pageNumber < images.length / 10; pageNumber += 1) {
+    const pageNumberElement = document.createElement('button');
+    pageNumberElement.innerHTML = `${pageNumber + 1}`
+    pageNumberElement.addEventListener('click', function () {
+      populateThumbnails(pageNumber * 10)
+    })
+    paginationElement.appendChild(pageNumberElement);
+  }
   populateThumbnails(0)
 }
 
+function onDogBreedSelected(event) {
+  const breed = event.target.value;
+  updateBreed(breed)
+}
+
 breedsInputElement.addEventListener('change', onDogBreedSelected);
+
+updateBreed("beagle"); // just for testing

@@ -1,0 +1,10 @@
+#thumbnailContainerElement {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, 250px);
+ justify-content: space-evenly;
+}
+img {
+  display: inline-block;
+  max-width: 200px;
+  max-height: 200px;
+}
