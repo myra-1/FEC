@@ -6,6 +6,8 @@ const breedsListElement = document.querySelector('#dogBreedsList')
 const thumnailContainerElement = document.querySelector('#thumbnailContainerElement')
 const breedsInputElement = document.querySelector('#dogBreedInput')
 const paginationElement = document.querySelector('#paginationElement')
+const imageModal = document.querySelector('#imageModal')
+const imageModalDisplay = document.querySelector('#imageModalDisplay')
 
 
 // FUNCTIONS
@@ -42,6 +44,9 @@ async function updateBreed(breed) {
       const imageElement = document.createElement('div');
       imageElement.innerHTML = `<img src=${image}>`
       thumbnailContainerElement.appendChild(imageElement)
+      imageElement.addEventListener("click", function () {
+        displayModal(image);
+      });
     }
   }
 
@@ -62,6 +67,18 @@ function onDogBreedSelected(event) {
   updateBreed(breed)
 }
 
+function displayModal(image) {
+  imageModalDisplay.setAttribute('src', image);
+  imageModal.style.visibility = 'visible';
+}
+
+function hideModal() {
+  imageModal.style.visibility = 'hidden';
+}
+
+
 breedsInputElement.addEventListener('change', onDogBreedSelected);
+imageModal.addEventListener("click", hideModal);
+
 
 updateBreed("beagle"); // just for testing
