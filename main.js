@@ -15,12 +15,16 @@
   // API FUNCTIONS
 
   async function getDogBreeds() {
+    // API call to dog.ceo
+    // Returns all the possible breeds in a list
     let response = await fetch('https://dog.ceo/api/breeds/list/all');
     let breeds = await response.json();
     return Object.keys(breeds.message);
   }
 
   async function getDogImages(breed, count) {
+    // API call to dog.ceo
+    // Returns a maximum count images in a list of a specific breed
     let response = await fetch(
       `https://dog.ceo/api/breed/${breed}/images/random/${count}`
     );
@@ -32,6 +36,8 @@
 
   async function setupDogBreedOptions() {
     const breeds = await getDogBreeds();
+    // Calls API for list of breeds
+    // Populates breeds into datalist for users to select from
     for (const breed of breeds) {
       const optionElement = document.createElement('option');
       optionElement.setAttribute('value', breed);
@@ -79,11 +85,13 @@
   }
 
   function displayModal(image) {
+    // Sets the src to the image URL that was passed and makes it visible
     imageModalDisplay.setAttribute('src', image);
     imageModal.style.visibility = 'visible';
   }
 
   function hideModal() {
+    // returns modal to default view
     imageModal.style.visibility = 'hidden';
   }
 
